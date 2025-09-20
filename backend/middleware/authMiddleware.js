@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { User } from '../models/User.js';
 
-const authMiddleware = async (req, res, next) => {
+export const authMiddleware = async (req, res, next) => {
   try {
     // Get token from header
     const token = req.header('Authorization')?.replace('Bearer ', '');
@@ -28,5 +28,3 @@ const authMiddleware = async (req, res, next) => {
     res.status(401).json({ message: 'Token is not valid' });
   }
 };
-
-export default authMiddleware;
