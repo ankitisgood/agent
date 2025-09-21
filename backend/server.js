@@ -4,6 +4,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes.js';
 import agentRoutes from './routes/agentRoutes.js';
+import listRoutes from './routes/listRoutes.js';
+import errorHandler from './middleware/errorHandler.js';
 
 dotenv.config();
 
@@ -25,6 +27,11 @@ mongoose.connect(process.env.MONGO_URI)
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/agents', agentRoutes);
+
+app.use('/api/lists', listRoutes);
+
+// Centralized error handler (should be after all routes)
+app.use(errorHandler);
 
 // Start server
 app.listen(PORT, () => {
